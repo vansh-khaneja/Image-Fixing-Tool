@@ -1,0 +1,59 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+server/venv/
+.env
+
+# VS Code
+.vscode/
+
+# Environment variables
+*.env
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Image processing temp files
+*.jpg
+*.jpeg
+*.png
+*.bmp
+*.tiff
+
+# FastAPI temp files
+*.db
+
+# Node.js (Frontend)
+client/node_modules/
+client/.next/
+client/.env.local
+client/.env*
+
+# Optional npm cache directory
+.npm
+
+# Yarn
+client/yarn.lock
+client/.yarn/
+
+# Build output
+client/out/
+
+# Testing
+coverage/
+
+# Pytest
+.pytest_cache/
+
+# Misc
+*.sqlite3
+*.tmp
+
+# model exceeding size limit
+server/yolo_self_train_new.pt
