@@ -333,7 +333,7 @@ from PIL import Image
 import numpy as np
 
 def process_image_with_enhanced_merging(image,
-                                      confidence_threshold=0.5,
+                                      confidence_threshold=0.3,
                                       union_efficiency_threshold=0.1,
                                       proximity_threshold=20,
                                       use_smart_merge=True):

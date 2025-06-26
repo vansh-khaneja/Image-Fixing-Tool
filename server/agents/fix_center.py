@@ -37,6 +37,8 @@ def arrange_bounding_boxes_in_grid(image, bounding_boxes, spacing_factor=1.0, sp
         grid_cols, grid_rows = 2, 2
     elif num_boxes <= 6:
         grid_cols, grid_rows = 3, 2
+    elif num_boxes == 8:  # SPECIFIC FIX FOR 8 PRODUCTS
+        grid_cols, grid_rows = 4, 2  # 4 columns, 2 rows (4 up, 4 down)
     elif num_boxes <= 9:
         grid_cols, grid_rows = 3, 3
     elif num_boxes <= 12:

@@ -218,3 +218,43 @@ def test_different_models(input_image, box_coordinates, output_dir="model_tests"
     
     print(f"\nAll test results saved in: {output_dir}")
     print("Compare the results to choose the best model for your use case!")
+
+
+from PIL import Image
+
+def fix_transparency_if_needed(img: Image.Image) -> tuple[Image.Image, bool]:
+    """
+    Automatically checks if the image has transparency and adds a white background if needed.
+
+    Args:
+        img (PIL.Image.Image): Input image.
+
+    Returns:
+        Tuple[PIL.Image.Image, bool]: 
+            - Image with white background if it had transparency, otherwise original image (converted to RGB).
+            - Boolean indicating if the original image had transparency.
+    """
+    try:
+        had_transparency = False
+
+        # Handle RGBA / LA
+        if img.mode in ("RGBA", "LA"):
+            alpha = img.getchannel("A")
+            if alpha.getextrema()[0] < 255:
+                had_transparency = True
+                white_bg = Image.new("RGBA", img.size, (255, 255, 255, 255))
+                white_bg.paste(img, (0, 0), mask=alpha)
+                return white_bg.convert("RGB"), had_transparency
+            else:
+                return img.convert("RGB"), had_transparency
+
+        # Handle palette mode with transparency info
+        elif img.mode == "P" and "transparency" in img.info:
+            rgba_img = img.convert("RGBA")
+            return fix_transparency_if_needed(rgba_img)
+
+        return img.convert("RGB") if img.mode != "RGB" else img, had_transparency
+
+    except Exception as e:
+        print(f"[ERROR] fix_transparency_if_needed: {e}")
+        return img.convert("RGB") if img.mode != "RGB" else img, False
